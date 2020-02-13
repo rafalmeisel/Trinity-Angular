@@ -21,12 +21,12 @@ export class ApiService {
     {headers: this.httpHeaders});
   }
   updateBook(book): Observable<any> {
-    const body = {title: book.title , description: book.description, author: book.author, year: book.year };
+    const body = {title: book.title , description: book.description, author: book.author, year: book.year, amount: book.amount };
     return this.http.put(this.baseurl + '/books/' + book.id + '/', body,
     {headers: this.httpHeaders});
   }
   createBook(book): Observable<any> {
-    const body = {title: book.title , description: book.description, author: book.author, year: book.year };
+    const body = {title: book.title , description: book.description, author: book.author, year: book.year, amount: book.amount};
     return this.http.post(this.baseurl + '/books/', body,
     {headers: this.httpHeaders});
   }

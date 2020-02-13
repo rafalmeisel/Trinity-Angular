@@ -23,6 +23,11 @@
     </td>
     <td>
       <h2>
+      Ilość dostępnych sztuk
+    </h2>
+    </td>
+    <td>
+      <h2>
       Edytuj
       </h2>
     </td>
@@ -46,23 +51,24 @@
       {{book.year}}
     </td>
     <td>
+      {{book.amount}}
+    </td>
+    <td>
       <button (click)="editBook(book)"> EDYTUJ </button>
     </td>
     <td>
       <button (click)="deleteBook(book)"> USUŃ </button>
     </td>
   </tr>
+  
   <tr>
-    <td colspan="6">
-      <button (click)="createBook()"> DODAJ NOWY </button>
-      </td>
-  </tr>
-  <tr>
-    <td colspan="6">
-      Title <input type="text" [(ngModel)]="selectedBook.title"/><br>
-      Description <input type="text" [(ngModel)]="selectedBook.description"/><br>
-      Author <input type="text" [(ngModel)]="selectedBook.author"/><br>
-      Year <input type="text" [(ngModel)]="selectedBook.year"/><br>
+    <td colspan="7">
+      Tytuł <input type="text" [(ngModel)]="selectedBook.title"/><br>
+      Opis <input type="text" [(ngModel)]="selectedBook.description"/><br>
+      Autor <input type="text" [(ngModel)]="selectedBook.author"/><br>
+      Rok <input type="text" [(ngModel)]="selectedBook.year"/><br>
+      Ilość <input type="text" [(ngModel)]="selectedBook.amount"/><br>
+      <button *ngIf="selectedBook.id == -1" (click)="createBook()"> DODAJ NOWY </button>
       <button *ngIf="selectedBook.id != -1" (click)="updateBook()"> ZAPISZ </button>
     </td>
   </tr>

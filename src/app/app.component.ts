@@ -10,10 +10,11 @@ import { ApiService } from './api.service';
 export class AppComponent {
   books = [{title: 'test'}];
   selectedBook;
+  emptyBook = {id: -1, title: '' , description: '', author: '', year: 0, amount: 0 };
 
   constructor(private api: ApiService) {
     this.getBooks();
-    this.selectedBook = {id: -1, title: '' , description: '', author: '', year: 0 };
+    this.selectedBook = this.emptyBook;
   }
   getBooks = () => {
     this.api.getAllBooks().subscribe(
@@ -39,7 +40,7 @@ export class AppComponent {
     this.api.updateBook(this.selectedBook).subscribe(
       data => {
         this.getBooks();
-        this.selectedBook = {id: -1, title: '' , description: '', author: '', year: 0 };
+        this.selectedBook = {id: -1, title: '' , description: '', author: '', year: 0, amount: 0 };
       },
       error => {
         console.log(error);
@@ -50,6 +51,7 @@ export class AppComponent {
     this.api.createBook(this.selectedBook).subscribe(
       data => {
         this.books.push(data);
+        this.selectedBook = {id: -1, title: '' , description: '', author: '', year: 0, amount: 0 };
       },
       error => {
         console.log(error);
