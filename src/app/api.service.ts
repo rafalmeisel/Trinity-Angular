@@ -34,4 +34,14 @@ export class ApiService {
     return this.http.delete(this.baseurl + '/books/' + id + '/',
     {headers: this.httpHeaders});
   }
+  getAllUsers(): Observable<any> {
+    return this.http.get(this.baseurl + '/users/',
+    {headers: this.httpHeaders});
+  }
+
+  createUser(user): Observable<any> {
+    const body = {login: user.login , name: user.name, privileges: 3};
+    return this.http.post(this.baseurl + '/users/', body,
+    {headers: this.httpHeaders});
+  }
 }

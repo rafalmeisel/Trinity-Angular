@@ -1,3 +1,29 @@
+<div *ngIf="selectedUser.id == -1" align="center">
+
+<h1>
+  Witaj w bibliotece!
+</h1>
+Jeżeli posiadasz konto, podaj swój login. Jeżeli nie masz konta, możesz je założyć :-)<br>
+<table>
+  <tr>
+    <td>
+<input type="text" placeholder="Wpisz login" [(ngModel)]="login"/><br>
+<button (click)="loginUser()"> ZALOGUJ </button>
+</td>
+<td>
+  <input type="text" placeholder="Wpisz login" [(ngModel)]="selectedUser.login"/><br>
+  <input type="text" placeholder="Wpisz imię" [(ngModel)]="selectedUser.name"/><br>
+  <button (click)="createUser()"> ZAREJESTRUJ </button>
+</td>
+</tr>
+</table>
+
+</div>
+
+<div *ngIf="selectedUser.id != -1" align="center">
+
+<h1 align="center">Witaj {{selectedUser.name}}!</h1>
+<button (click)="logoutUser()"> WYLOGUJ </button>
 <h1>List of images</h1>
 <table style="width: 100%;">
   <tr align="center">
@@ -26,12 +52,12 @@
       Ilość dostępnych sztuk
     </h2>
     </td>
-    <td>
+    <td *ngIf="selectedUser.privileges == 0">
       <h2>
       Edytuj
       </h2>
     </td>
-    <td>
+    <td *ngIf="selectedUser.privileges == 0">
       <h2>
       Usuń
       </h2>
@@ -53,15 +79,15 @@
     <td>
       {{book.amount}}
     </td>
-    <td>
+    <td *ngIf="selectedUser.privileges == 0">
       <button (click)="editBook(book)"> EDYTUJ </button>
     </td>
-    <td>
+    <td *ngIf="selectedUser.privileges == 0">
       <button (click)="deleteBook(book)"> USUŃ </button>
     </td>
   </tr>
   
-  <tr>
+  <tr *ngIf="selectedUser.privileges == 0">
     <td colspan="7">
       Tytuł <input type="text" [(ngModel)]="selectedBook.title"/><br>
       Opis <input type="text" [(ngModel)]="selectedBook.description"/><br>
@@ -73,3 +99,5 @@
     </td>
   </tr>
 </table>
+
+</div>
