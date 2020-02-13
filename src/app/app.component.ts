@@ -25,7 +25,7 @@ export class AppComponent {
       }
     );
   }
-  bookClicked = (book) => {
+  editBook = (book) => {
     this.api.getOneBook(book.id).subscribe(
       data => {
         this.selectedBook = data;
@@ -39,6 +39,7 @@ export class AppComponent {
     this.api.updateBook(this.selectedBook).subscribe(
       data => {
         this.getBooks();
+        this.selectedBook = {id: -1, title: '' , description: '', author: '', year: 0 };
       },
       error => {
         console.log(error);
@@ -55,8 +56,8 @@ export class AppComponent {
       }
     );
   }
-  deleteBook = () => {
-    this.api.deleteBook(this.selectedBook.id).subscribe(
+  deleteBook = (book) => {
+    this.api.deleteBook(book.id).subscribe(
       data => {
         this.getBooks();
       },
