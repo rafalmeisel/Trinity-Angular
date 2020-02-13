@@ -8,22 +8,61 @@ import { ApiService } from './api.service';
   providers: [ApiService]
 })
 export class AppComponent {
-  title = 'Trinity-Angular';
+  books = [{title: 'test'}];
+  selectedBook;
 
-  images = [{title: 'test'}]
-
-  constructor(private api: ApiService){
-    this.getAllImages();
+  constructor(private api: ApiService) {
+    this.getBooks();
+    this.selectedBook = {id: -1, title: '' , description: '', author: '', year: 0 };
   }
-
-  getAllImages = () => {
-    this.api.getAllImages().subscribe(
+  getBooks = () => {
+    this.api.getAllBooks().subscribe(
       data => {
-        this.images = data;
+        this.books = data;
       },
       error => {
-        console.log(error)
+        console.log(error);
       }
-    )
-    }
+    );
   }
+  bookClicked = (book) => {
+    this.api.getOneBook(book.id).subscribe(
+      data => {
+        this.selectedBook = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  updateBook = () => {
+    this.api.updateBook(this.selectedBook).subscribe(
+      data => {
+        this.getBooks();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  createBook = () => {
+    this.api.createBook(this.selectedBook).subscribe(
+      data => {
+        this.books.push(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  deleteBook = () => {
+    this.api.deleteBook(this.selectedBook.id).subscribe(
+      data => {
+        this.getBooks();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+}
